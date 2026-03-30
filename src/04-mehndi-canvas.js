@@ -72,21 +72,59 @@
  *   // => 2 (last frame applied: opacity is now "1")
  */
 export function applyBaseStyle(element, color, size) {
-  // Your code here
+  if(!element) return null;
+  element.style.backgroundColor = color;
+  element.style.width = size + "px";
+  element.style.height = size + "px";
+  element.style.borderRadius = "50%";
+  return element;
 }
 
 export function setPatternStyle(element, styles) {
-  // Your code here
+  if(!element) return-1;
+
+  if(typeof styles !== "object" || styles === null) return 0;
+
+  let count = 0;
+  for(let property in styles){
+    if(styles.hasOwnProperty(property)){
+      element.style[property] = styles[property];
+      count++;
+    }
+  }
+  return count;
 }
 
 export function getComputedStyles(element, properties) {
-  // Your code here
+  if(!element) return null;
+  if(!Array.isArray(properties)) return null;
+
+  const computedStyles = {};
+  for(let prop in properties){
+    computedStyles[properties[prop]] = element.style[properties[prop]];
+  }
+  return computedStyles;
 }
 
 export function toggleVisibility(element) {
-  // Your code here
+ if(!element) return null;
+ if(element.style.display === "none"){
+  element.style.display = "";
+  return "";
+ }
+ element.style.display = "none";
+ return "none";
 }
 
 export function animateElement(element, frames) {
-  // Your code here
+  if(!element) return -1;
+  if(!Array.isArray(frames) || frames.length === 0) return -1;
+
+  const lastFrame = frames[frames.length - 1];
+  for(let property in lastFrame){
+    if(lastFrame.hasOwnProperty(property)){
+      element.style[property] = lastFrame[property];
+    }
+  }
+  return frames.length;
 }

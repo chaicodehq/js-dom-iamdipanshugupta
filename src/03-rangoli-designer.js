@@ -6,7 +6,6 @@
  * colors add karo, remove karo, toggle karo, check karo ki design
  * lagaya hai ya nahi. Jaise rangoli mein ek ek rang bharte hain,
  * waise hi classes se elements ko style karo.
- *
  * Functions:
  *
  *   1. addColors(element, ...colors)
@@ -70,25 +69,70 @@
  *   // => ["red", "blue"]
  */
 export function addColors(element, ...colors) {
-  // Your code here
+  if(!element) return -1;
+
+  let count = 0;
+
+  for(let color of colors) {
+    if(!element.classList.contains(color)){
+      element.classList.add(color);
+      count++;
+    }
+  }
+  return count;
 }
 
 export function removeColors(element, ...colors) {
-  // Your code here
+ if(!element) return -1;
+ let count = 0;
+ for(let color of colors){
+  if(element.classList.contains(color)){
+    element.classList.remove(color);
+    count++;
+  }
+ }
+ return count;
+
 }
 
 export function togglePattern(element, pattern) {
-  // Your code here
+ if(!element) return null;
+
+ const className = `pattern-${pattern}`;
+ return element.classList.toggle(className);
 }
 
 export function hasDesign(element, designName) {
-  // Your code here
+  if(!element) return false;
+
+  const className =  `design-${designName}`;
+  return element.classList.contains(className);
 }
 
 export function replaceDesign(element, oldDesign, newDesign) {
-  // Your code here
+  if(!element) return false;
+  const oldClass = `design-${oldDesign}`;
+  const newClass = `design-${newDesign}`;
+
+  const hasOldDesign = element.classList.contains(oldClass);
+  if(hasOldDesign){
+    element.classList.remove(oldClass);
+    element.classList.add(newClass);
+  }
+  else{
+    element.classList.add(newClass);
+  }
+  return hasOldDesign;
 }
 
 export function getActiveColors(element) {
-  // Your code here
+  if(!element) return [];
+
+  const activeColors = [];
+  for( let className of element.classList){
+    if(className.startsWith("color-")){
+      activeColors.push(className.slice(6));
+    }
+  }
+  return activeColors;
 }
